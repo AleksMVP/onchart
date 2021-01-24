@@ -10,7 +10,7 @@ module.exports = (env, argv) => {
         entry: "/js/main.js",
         resolve: {
             alias: {
-                '@': path.resolve(__dirname, "src"),
+                "@": path.resolve(__dirname, "src"),
             }
         },
         output: {
@@ -19,7 +19,7 @@ module.exports = (env, argv) => {
         },
         plugins: [
             new HTMLWebpackPlugin({
-                title: "Chart",
+                title: "OnChart",
                 template: "/html/index.html",
             }),
             new MiniCssExtractPlugin({
@@ -28,6 +28,12 @@ module.exports = (env, argv) => {
         ],
         module: {
             rules: [
+               {
+                    test: /\.(js|jsx)$/,
+                    exclude: /(node_modules|bower_components)/,
+                    loader: "babel-loader",
+                    options: { presets: ["@babel/env"] }
+               },
                {
                     test: /\.scss$/,
                     use: [
@@ -41,17 +47,9 @@ module.exports = (env, argv) => {
                     use: ["pug-loader"],
                 },
                 {
-                    test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
-                    use: [
-                        {
-                            loader: "url-loader?limit=100000",
-                            options: {
-                                name: "./fonts/[name].[ext]",
-                                outputPath: "fonts/"
-                            }
-                        }
-                    ]
-                }
+                    test: /\.svg$/,
+                    use: ["@svgr/webpack", "file-loader"],
+                  }
             ]
        },
     }
