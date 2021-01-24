@@ -51,7 +51,11 @@ module.exports = (env, argv) => {
                     use: ["@svgr/webpack", "file-loader"],
                   }
             ]
-       },
+        },
+        devServer: {
+            contentBase: path.join(__dirname, "dist"),
+            port: 9000
+        },
     }
 
     if (argv.mode === "development") {
