@@ -1,4 +1,81 @@
+@import "@/css/config.scss";
+
 body {
     margin: 0;
     padding: 0;
+}
+
+.main-container {
+    display: grid;
+    height: 100vh;
+    grid-template-columns: [col1] 40px [col2] 200px [col3] auto;
+    grid-template-rows: [row1] 40px [row2] auto [row3] 20px;
+    grid-template-areas: 
+        "sidebar project-structer open-charts"
+        "sidebar project-structer chart"
+        "settings settings settings";
+
+    &__sidebar {
+        grid-area: sidebar;
+
+        display: flex;
+        flex-direction: column;
+
+        background-color: $sidebar-background-color;
+    }
+
+    &__project-structer {
+        grid-area: project-structer;
+        background-color: $project-structer-color;
+    }
+
+    &__open-charts {
+        grid-area: open-charts;
+        background-color: $open-charts-backgound-color;
+    }
+
+    &__chart {
+        grid-area: chart;
+        background-color: $chart-backgound-color;
+    }
+
+    &__settings {
+        grid-area: settings;
+        background-color: rgb(60, 167, 255);
+    }
+}
+
+.navigation {
+    &__link {
+        display: flex;
+        height: 50px;
+        justify-content: center;
+        align-items: center;
+
+        position: relative;
+        transition: ease-in-out all 0.5s;
+
+        &::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            height: 100%;
+            width: 3px;
+            opacity: 0;
+            background-color: $left-stick-color;
+        } 
+
+        &:hover::before {
+            opacity: 1;
+        } 
+
+        &:hover .navigation__icon {
+            filter: invert(1);
+        }
+    }
+
+    &__icon {
+        width: 30px;
+        height: 30px;
+    }
 }
